@@ -5,5 +5,5 @@ import info.u_team.useful_solarpanels.UsefulSolarpanelsMod;
 
 public class UsefulSolarpanelsItemGroups {
 	
-	public static final UItemGroup GROUP = new UItemGroup(UsefulSolarpanelsMod.MODID, "group", () -> null);
+	public static final UItemGroup GROUP = new UItemGroup(UsefulSolarpanelsMod.MODID, "group", () -> UsefulSolarpanelsBlocks.TIER_1);
 }

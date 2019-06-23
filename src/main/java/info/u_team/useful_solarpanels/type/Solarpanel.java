@@ -8,7 +8,7 @@ import net.minecraft.util.IStringSerializable;
 
 public enum Solarpanel implements IStringSerializable {
 	
-	TIER_1("tier_1", Rarity.COMMON, 0xFFFFFF, () -> CommonConfig.getInstance().tier1SolarPanel);
+	TIER_1("tier_1", Rarity.COMMON, 0x0FFF0F, () -> CommonConfig.getInstance().tier1SolarPanel);
 	
 	private final String name;
 	private final Rarity rarity;
