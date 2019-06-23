@@ -1,2 +1,2 @@
-# Useful-Solarpanel
-https://www.curseforge.com/minecraft/mc-mods/useful-solarpanel
+# Useful-Solarpanels
+https://www.curseforge.com/minecraft/mc-mods/useful-solarpanels
