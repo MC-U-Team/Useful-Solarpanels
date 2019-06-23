@@ -5,6 +5,7 @@ import info.u_team.useful_solarpanels.init.UsefulSolarpanelsContainerTypes;
 import info.u_team.useful_solarpanels.tileentity.SolarpanelTileEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.items.*;
 
 public class SolarpanelContainer extends USyncedTileEntityContainer<SolarpanelTileEntity> {
 	
@@ -18,6 +19,12 @@ public class SolarpanelContainer extends USyncedTileEntityContainer<SolarpanelTi
 	
 	@Override
 	protected void init(boolean server) {
+		tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+			for (int index = 0; index < handler.getSlots(); index++) {
+				addSlot(new SlotItemHandler(handler, index, index * 18 + 10, 10));
+			}
+		});
+		appendPlayerInventory(playerInventory, 8, 20);
 	}
 	
 }

@@ -5,6 +5,7 @@ import info.u_team.u_team_core.container.USyncedTileEntityContainer;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.useful_solarpanels.UsefulSolarpanelsMod;
 import info.u_team.useful_solarpanels.block.SolarpanelBlock;
+import info.u_team.useful_solarpanels.container.SolarpanelContainer;
 import info.u_team.useful_solarpanels.init.UsefulSolarpanelsTileEntityTypes;
 import info.u_team.useful_solarpanels.type.Solarpanel;
 import net.minecraft.entity.player.*;
@@ -45,14 +46,14 @@ public class SolarpanelTileEntity extends UTileEntity implements IAutoSyncedTile
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction side) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			upgradeSlots.cast();
+			return upgradeSlots.cast();
 		}
 		return super.getCapability(capability, side);
 	}
 	
 	@Override
 	public USyncedTileEntityContainer<?> createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-		return null;
+		return new SolarpanelContainer(id, playerInventory, this);
 	}
 	
 	@Override
