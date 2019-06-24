@@ -21,10 +21,10 @@ public class SolarpanelContainer extends USyncedTileEntityContainer<SolarpanelTi
 	protected void init(boolean server) {
 		tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
 			for (int index = 0; index < handler.getSlots(); index++) {
-				addSlot(new SlotItemHandler(handler, index, index * 18 + 10, 10));
+				addSlot(new SlotItemHandler(handler, index, index * 18 + 80, 54));
 			}
 		});
-		appendPlayerInventory(playerInventory, 8, 20);
+		appendPlayerInventory(playerInventory, 8, 86);
 	}
 	
 }

@@ -58,7 +58,7 @@ public class SolarpanelTileEntity extends UTileEntity implements IAutoSyncedTile
 	
 	@Override
 	public ITextComponent getDisplayName() {
-		return new TranslationTextComponent("block." + UsefulSolarpanelsMod.MODID + ".solarpanel_" + solarpanel.orElse(null));
+		return new TranslationTextComponent("block." + UsefulSolarpanelsMod.MODID + ".solarpanel_" + solarpanel.orElse(Solarpanel.TIER_1).getName());
 	}
 	
 	// Server -> Client
