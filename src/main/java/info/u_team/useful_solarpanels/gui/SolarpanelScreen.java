@@ -22,13 +22,15 @@ public class SolarpanelScreen extends UContainerScreen<SolarpanelContainer> {
 	@Override
 	protected void init() {
 		super.init();
-		addButton(new EnergyStorageWidget(10, 10, 60, "test", () -> 1000, () -> 400));
+		addButton(new EnergyStorageWidget(guiLeft + 9, guiTop + 17, 54, () -> 1000, () -> 100));
+		addButton(new SolarGenerationStateWidget(guiLeft + 30, guiTop + 50, () -> GenerationState.NO));
 	}
 	
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		renderBackground();
 		super.render(mouseX, mouseY, partialTicks);
+		buttons.forEach(button -> button.renderToolTip(mouseX, mouseY));
 		renderHoveredToolTip(mouseX, mouseY);
 	}
 	

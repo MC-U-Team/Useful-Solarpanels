@@ -1,7 +1,7 @@
 package info.u_team.useful_solarpanels.gui;
 
 import java.util.*;
-import java.util.function.LongSupplier;
+import java.util.function.Supplier;
 
 import info.u_team.useful_solarpanels.UsefulSolarpanelsMod;
 import net.minecraft.client.*;
@@ -12,42 +12,24 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
 @OnlyIn(Dist.CLIENT)
-public class EnergyStorageWidget extends Widget {
+public class SolarGenerationStateWidget extends Widget {
 	
-	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(UsefulSolarpanelsMod.MODID, "textures/gui/energy.png");
+	public static final ResourceLocation STATE_TEXTURE = new ResourceLocation(UsefulSolarpanelsMod.MODID, "textures/gui/generation_state.png");
 	
-	private final LongSupplier capacity;
-	private final LongSupplier storage;
+	private final Supplier<GenerationState> state;
 	
-	public EnergyStorageWidget(int x, int y, int height, LongSupplier capacity, LongSupplier storage) {
-		super(x, y, 14, height < 3 ? 3 : height, "");
-		this.capacity = capacity;
-		this.storage = storage;
+	public SolarGenerationStateWidget(int x, int y, Supplier<GenerationState> state) {
+		super(x, y, 10, 10, "");
+		this.state = state;
 	}
 	
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
-		minecraft.getTextureManager().bindTexture(ENERGY_TEXTURE);
 		
-		double ratio = (double) storage.getAsLong() / capacity.getAsLong();
-		if (ratio > 1) {
-			ratio = 1;
-		}
-		
-		final int storageOffset = (int) ((1 - ratio) * (height - 2));
-		
-		for (int yComponent = 1; yComponent < height - 1; yComponent += 2) {
-			blit(x + 1, y + yComponent, 0, 0, 12, 2, 16, 16); // Background with side border
-		}
-		
-		for (int yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
-			if (yComponent % 2 == 0) {
-				blit(x + 1, y + yComponent, 0, 3, 12, 1, 16, 16); // Fuel
-			} else {
-				blit(x + 1, y + yComponent, 0, 2, 12, 1, 16, 16); // Fuel
-			}
-		}
+		minecraft.getTextureManager().bindTexture(STATE_TEXTURE);
+		final int imageOffset = state.get() == GenerationState.DAY ? 1 : state.get() == GenerationState.NIGHT ? 2 : 0;
+		blit(x + 1, y + 1, 0, 8 * imageOffset, 8, 8, 32, 32);
 		
 		drawContainerBorder(x, y, width, height);
 	}
@@ -76,7 +58,7 @@ public class EnergyStorageWidget extends Widget {
 			final Minecraft minecraft = Minecraft.getInstance();
 			final MainWindow mainWindow = minecraft.mainWindow;
 			final List<String> list = new ArrayList<>();
-			list.add(storage.getAsLong() + " / " + capacity.getAsLong() + " FE");
+			list.add("Generation state");
 			GuiUtils.drawHoveringText(list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300, minecraft.fontRenderer);
 		}
 	}
@@ -85,4 +67,5 @@ public class EnergyStorageWidget extends Widget {
 	public void playDownSound(SoundHandler handler) {
 		// Don't play click sound
 	}
+	
 }
